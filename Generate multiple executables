@@ -1,0 +1,26 @@
+
+.SUFFIXES:.c .o
+=========可识别后缀
+ 
+CC=gcc
+ 
+SRCS1=main1.c
+OBJS1=$(SRCS1:.c=.o)
+=============括号与SRC1不能有空格
+EXEC1=main1
+ 
+SRCS2=main2.c
+OBJS2=$(SRCS2:.c=.o)
+EXEC2=main2
+ 
+start: $(OBJS1) $(OBJS2)
+        $(CC) -o $(EXEC1) $(OBJS1)
+        $(CC) -o $(EXEC2) $(OBJS2)
+        @echo "-----------------------------OK-----------------------"
+ 
+.c.o:
+        $(CC) -Wall -g -o $@ -c $<
+==========注意这里是$<      
+ 
+clean:
+        rm -rf $(EXEC1) $(OBJS1)

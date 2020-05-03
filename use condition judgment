@@ -1,0 +1,21 @@
+src := lex.yy.c
+main := main
+
+.PHNOY: all clean
+
+ifeq ($(file),)
+	@echo "no input file"
+else
+all:$(main)
+endif
+
+
+clean:
+	rm $(main) $(src) *.~
+
+$(main):$(src)
+	gcc -o $(main) $(src) -lfl
+
+$(src):
+	flex $(file)
+
