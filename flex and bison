@@ -1,0 +1,32 @@
+flexSrc:=$(addsuffix .l, $(file))
+bisonSrc:=$(addsuffix .y, $(file))
+tabSrc:=$(addsuffix .tab.c, $(file))
+tabHeader:=$(addsuffix .h, $(file))
+main := main
+
+
+ifeq ($(file),)
+clean:
+	@echo "no input file"
+	rm $(main) $(flexSrc) $(bisonSrc) $(tabSrc) $(tabHeader) *~ lex.yy.c
+else
+all:$(main)
+endif
+
+
+
+
+
+
+lex.yy.c:$(flexSrc)
+	flex $(flexSrc)
+
+$(tabSrc):$(bisonSrc)
+	bison -d $(bisonSrc)
+
+$(main):$(tabSrc) lex.yy.c
+	gcc -o $(main) lex.yy.c $(tabSrc) -lfl
+
+
+
+.PHNOY: all clean
