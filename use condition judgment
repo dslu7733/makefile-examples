@@ -1,9 +1,10 @@
 src := lex.yy.c
 main := main
 
-.PHNOY: all clean
+.PHNOY: all clean empty
 
 ifeq ($(file),)
+empty:
 	@echo "no input file"
 else
 all:$(main)
